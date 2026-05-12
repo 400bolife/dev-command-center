@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <title>Dev Command Center</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    
+    <header class="app-header">
+      <h1>Dev Command Center</h1>
+      <p>Личная панель разработчика</p>
+    </header>
+
+    <main class="app-main">
+      <section class="panel tasks-panel">
+        <h2 class="panel-title">Задачи</h2>
+        <form class="panel-form" id="task-form">
+          <input
+            type="text"
+            id="task-input"
+            placeholder="Новая задача..."
+            required
+          >
+          <button type="submit">Добавить</button>
+        </form>
+        <div class="panel-list" id="task-list"></div>
+      </section>
+
+      <section class="panel links-panel">
+        <h2 class="panel-title">Ссылки</h2>
+        <form class="panel-form" id="link-form">
+          <input
+            type="text"
+            id="link-title-input"
+            placeholder="Название ссылки"
+            required
+          >
+          <input
+            type="url"
+            id="link-url-input"
+            placeholder="https://..."
+            required
+          >
+          <button type="submit">Добавить ссылку</button>
+        </form>
+        <div class="panel-list" id="link-list"></div>
+      </section>
+
+      <section class="panel notes-panel">
+        <h2 class="panel-title">Заметки</h2>
+        <form class="panel-form" id="note-form">
+          <textarea
+            id="note-textarea"
+            rows="3"
+            placeholder="Новая заметка..."
+            required
+          ></textarea>
+          <button type="submit">Сохранить заметку</button>
+        </form>
+        <div class="panel-list" id="note-list"></div>
+      </section>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
