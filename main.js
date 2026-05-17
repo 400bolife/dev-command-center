@@ -23,30 +23,64 @@ function addTask(title) {
   };
 
   tasks.push(newTask);
+  saveTasksToStorage();
   renderTasks();
 }
+const TASKS_STORAGE_KEY = "dcc_tasks";
 
-// Пометить задачу как выполненную
+function saveTasksToStorage() {
+  try {
+    const serialized = JSON.stringify(tasks);
+    localStorage.setItem(TASKS_STORAGE_KEY, serialized);
+  } catch (error) {
+    console.error("Не удалось сохранить задачи в localStorage", error);
+  }
+}
+
+function loadTasksFromStorage() {
+  try {
+    const serialized = localStorage.getItem(TASKS_STORAGE_KEY);
+    if (!serialized) return;
+
+    const parsed = JSON.parse(serialized);
+    if (Array.isArray(parsed)) {
+      // Немного защищаемся: берём только нужные поля
+      parsed.forEach((item) => {
+        if (item && typeof item.title === "string") {
+          tasks.push({
+            id: item.id || generateId(),
+            title: item.title,
+            done: Boolean(item.done)
+          });
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Не удалось загрузить задачи из localStorage", error);
+  }
+}
+
 function completeTask(id) {
   const task = tasks.find((t) => t.id === id);
   if (!task) return;
   task.done = true;
+  saveTasksToStorage();
   renderTasks();
 }
 
-// Вернуть задачу обратно в активные
 function restoreTask(id) {
   const task = tasks.find((t) => t.id === id);
   if (!task) return;
   task.done = false;
+  saveTasksToStorage();
   renderTasks();
 }
 
-// Удалить задачу
 function deleteTask(id) {
   const index = tasks.findIndex((t) => t.id === id);
   if (index === -1) return;
   tasks.splice(index, 1);
+  saveTasksToStorage();
   renderTasks();
 }
 
@@ -139,3 +173,7 @@ taskForm.addEventListener("submit", (event) => {
   addTask(value);
   taskInput.value = "";
 });
+
+// Инициализация при загрузке страницы
+loadTasksFromStorage();
+renderTasks();
