@@ -56,6 +56,25 @@ function renderTasks() {
   taskListActive.innerHTML = "";
   taskListDone.innerHTML = "";
 
+  const hasActive = tasks.some((t) => !t.done);
+  const hasDone = tasks.some((t) => t.done);
+
+  // Если нет активных задач — показываем плейсхолдер
+  if (!hasActive) {
+    const placeholder = document.createElement("p");
+    placeholder.className = "empty-placeholder";
+    placeholder.textContent = "Нет текущих задач";
+    taskListActive.appendChild(placeholder);
+  }
+
+  // Если нет выполненных задач — показываем плейсхолдер
+  if (!hasDone) {
+    const placeholder = document.createElement("p");
+    placeholder.className = "empty-placeholder";
+    placeholder.textContent = "Нет выполненных задач";
+    taskListDone.appendChild(placeholder);
+  }
+
   // Проходим по всем задачам
   tasks.forEach((task) => {
     const item = document.createElement("div");
@@ -66,12 +85,11 @@ function renderTasks() {
 
     if (task.done) {
       titleSpan.style.textDecoration = "line-through";
-      titleSpan.style.color = "#6b7280"; // серый
+      titleSpan.style.color = "#6b7280";
     }
 
     const buttonsContainer = document.createElement("div");
 
-    // Кнопка выполнить / вернуть
     if (!task.done) {
       const completeButton = document.createElement("button");
       completeButton.textContent = "Выполнить";
@@ -86,7 +104,6 @@ function renderTasks() {
       buttonsContainer.appendChild(restoreButton);
     }
 
-    // Кнопка удалить
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Удалить";
     deleteButton.className = "task-delete-button";
@@ -96,10 +113,17 @@ function renderTasks() {
     item.appendChild(titleSpan);
     item.appendChild(buttonsContainer);
 
-    // Кладём элемент в нужный список
     if (!task.done) {
+      // Если это первая активная задача — убираем плейсхолдер
+      if (hasActive && taskListActive.firstChild?.classList.contains("empty-placeholder")) {
+        taskListActive.innerHTML = "";
+      }
       taskListActive.appendChild(item);
     } else {
+      // Если это первая выполненная задача — убираем плейсхолдер
+      if (hasDone && taskListDone.firstChild?.classList.contains("empty-placeholder")) {
+        taskListDone.innerHTML = "";
+      }
       taskListDone.appendChild(item);
     }
   });

@@ -111,3 +111,21 @@ body {
 .task-delete-button:hover {
   background-color: #b91c1c;
 }
+
+.panel-subtitle {
+  margin: 8px 0 4px;
+  font-size: 14px;
+  color: #d1d5db;
+}
+
+.panel-divider {
+  border: none;
+  border-top: 1px solid #374151;
+  margin: 8px 0;
+}
+
+.empty-placeholder {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #6b7280;
+}

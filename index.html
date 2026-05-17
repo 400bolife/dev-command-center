@@ -13,9 +13,10 @@
     </header>
 
     <main class="app-main">
+
       <section class="panel tasks-panel">
         <h2 class="panel-title">Задачи</h2>
-        <form class="panel-form" id="task-form">
+         <form class="panel-form" id="task-form">
           <input
             type="text"
             id="task-input"
@@ -24,14 +25,23 @@
           >
           <button type="submit">Добавить</button>
         </form>
+
+        <h3 class="panel-subtitle">Текущие задачи</h3>
         <div class="panel-list" id="task-list-active">
-          <h3>Текущие задачи</h3>
+          <p class="empty-placeholder" id="empty-active">
+            Нет текущих задач
+          </p>
         </div>
-        <!-- <hr> -->
+
+        <hr class="panel-divider">
+
+        <h3 class="panel-subtitle">Выполненные задачи</h3>
         <div class="panel-list" id="task-list-done">
-          <h3>Выполненые задачи</h3>
+          <p class="empty-placeholder" id="empty-done">
+            Нет выполненных задач
+          </p>
         </div>
-      </section>
+      </section> 
 
       <section class="panel links-panel">
         <h2 class="panel-title">Ссылки</h2>
